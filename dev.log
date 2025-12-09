@@ -1,0 +1,72 @@
+
+> dashboard-overtime@0.1.0 dev
+> next dev
+
+   ▲ Next.js 16.0.8 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://10.97.8.156:3000
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ✓ Ready in 1151ms
+ ○ Compiling / ...
+ GET / 200 in 8.7s (compile: 8.3s, render: 445ms)
+ ✓ Compiled in 67ms
+ GET / 200 in 338ms (compile: 129ms, render: 209ms)
+ GET / 200 in 145ms (compile: 13ms, render: 132ms)
+ ✓ Compiled in 341ms
+ ✓ Compiled in 318ms
+ ✓ Compiled in 39ms
+ ✓ Compiled in 78ms
+ GET / 200 in 371ms (compile: 111ms, render: 260ms)
+ ✓ Compiled in 47ms
+ GET / 200 in 387ms (compile: 135ms, render: 251ms)
+ ✓ Compiled in 33ms
+ ✓ Compiled in 35ms
+ ✓ Compiled in 39ms
+ ✓ Compiled in 47ms
+ ✓ Compiled in 39ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 35ms
+ GET / 200 in 517ms (compile: 161ms, render: 356ms)
+ ✓ Compiled in 33ms
+ ✓ Compiled in 33ms
+ ✓ Compiled in 69ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 28ms
+ ⨯ ReferenceError: selectedDate is not defined
+    at useDashboardData (hooks/use-dashboard-data.ts:53:61)
+    at Dashboard (components/Dashboard.tsx:27:23)
+  51 |   const filteredData = useMemo(() => {
+  52 |     return applyFilters(joinedData, selectedCostCenter, selectedOvertimeType, selectedDate)
+> 53 |   }, [joinedData, selectedCostCenter, selectedOvertimeType, selectedDate])
+     |                                                             ^
+  54 |
+  55 |   // Aggregated data (computed from filtered data)
+  56 |   const aggregatedByCostCenter = useMemo(() => { {
+  digest: '4012649013'
+}
+ GET / 500 in 651ms (compile: 250ms, render: 400ms)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 31ms
+ GET / 200 in 838ms (compile: 227ms, render: 611ms)
+ ✓ Compiled in 42ms
+ ✓ Compiled in 28ms
+ ✓ Compiled in 31ms
+ ✓ Compiled in 71ms
+ GET / 200 in 345ms (compile: 115ms, render: 230ms)
+ ✓ Compiled in 30ms
+ ✓ Compiled in 75ms
+ ✓ Compiled in 66ms
+ GET / 200 in 215ms (compile: 127ms, render: 88ms)
+ ✓ Compiled in 29ms
+ ✓ Compiled in 80ms
+ ✓ Compiled in 44ms
+ GET / 200 in 326ms (compile: 98ms, render: 227ms)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 91ms
+ GET / 200 in 560ms (compile: 154ms, render: 405ms)
