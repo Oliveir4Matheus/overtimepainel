@@ -31,7 +31,36 @@ function parseCSVLine(line: string, delimiter: string = ','): string[] {
   return result
 }
 
-// Parse centro_custo.csv (semicolon delimiter, UTF-8 with BOM)
+// Detect CSV delimiter by analyzing the first line
+function detectDelimiter(text: string): string {
+  const delimiters = [',', ';']
+
+  // Get first line (header)
+  const firstLine = text.split('\n')[0]
+
+  if (!firstLine) {
+    return ',' // Default fallback
+  }
+
+  // Count fields for each delimiter
+  let bestDelimiter = ','
+  let maxFields = 0
+
+  for (const delimiter of delimiters) {
+    const fields = parseCSVLine(firstLine, delimiter)
+    const fieldCount = fields.length
+
+    // Choose delimiter that produces more fields (minimum 2)
+    if (fieldCount >= 2 && fieldCount > maxFields) {
+      maxFields = fieldCount
+      bestDelimiter = delimiter
+    }
+  }
+
+  return bestDelimiter
+}
+
+// Parse centro_custo.csv (auto-detect delimiter, UTF-8 with BOM)
 export async function parseCentroCusto(file: File): Promise<CentroCustoRecord[]> {
   try {
     const text = await file.text()
@@ -42,11 +71,14 @@ export async function parseCentroCusto(file: File): Promise<CentroCustoRecord[]>
       throw new Error('Arquivo centro_custo.csv está vazio')
     }
 
+    // Detect delimiter from the cleaned text
+    const delimiter = detectDelimiter(cleanText)
+
     // Skip header
     const dataLines = lines.slice(1)
 
     return dataLines.map(line => {
-      const fields = parseCSVLine(line, ';')
+      const fields = parseCSVLine(line, delimiter)
 
       if (fields.length < 4) {
         console.warn('Linha inválida no centro_custo.csv:', line)
@@ -65,7 +97,7 @@ export async function parseCentroCusto(file: File): Promise<CentroCustoRecord[]>
   }
 }
 
-// Parse ocorrencias.csv (comma delimiter, filter credit occurrences only)
+// Parse ocorrencias.csv (auto-detect delimiter, filter credit occurrences only)
 export async function parseOcorrencias(file: File): Promise<OccurrenceRecord[]> {
   try {
     const text = await file.text()
@@ -75,11 +107,14 @@ export async function parseOcorrencias(file: File): Promise<OccurrenceRecord[]> 
       throw new Error('Arquivo ocorrencias.csv está vazio')
     }
 
+    // Detect delimiter from the text
+    const delimiter = detectDelimiter(text)
+
     // Skip header
     const dataLines = lines.slice(1)
 
     const records = dataLines.map(line => {
-      const fields = parseCSVLine(line, ',')
+      const fields = parseCSVLine(line, delimiter)
 
       if (fields.length < 12) {
         console.warn('Linha inválida no ocorrencias.csv:', line)
